@@ -1,4 +1,6 @@
-import java.util.Scanner; 
+import java.util.Scanner;
+
+import core.ConsoleGame; 
 
 public class main {
 
@@ -8,7 +10,15 @@ public class main {
 		System.out.println("Please select either console (c) or file (f) input: ");
 		String s = scan.next();
 		scan.close();
-		System.out.printf("You chose: %s \n", s);
+		System.out.printf("You chose: %s \n\n", s);
+		if(s.equals("c")) {
+			ConsoleGame consoleGame = new ConsoleGame();
+			consoleGame.main();
+		}
+		else if(s.equals("f")) {
+//			ConsoleGame consoleGame = new ConsoleGame();
+//			consoleGame.main();
+		}
 
 	}
 
