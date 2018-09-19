@@ -81,26 +81,84 @@ public class ConsoleGameTest extends TestCase{
 		assertEquals(21, hand.value); 
 		game.player.cards = new LinkedList<String>();
 		
+		hand.cards.add("HA");  //test case for 2 aces in one hand - first is 11 second is 1
+		game.cardValues();
+		assertEquals(11, hand.value); 
+		hand.cards.add("SA");
+		game.cardValues();
+		assertEquals(12, hand.value); 		
+		game.player.cards = new LinkedList<String>();
+
+		hand.cards.add("H9");
+		hand.cards.add("SK");
+		hand.cards.add("SA");
+		hand.cards.add("DA"); //two aces - both count as 1
+		game.cardValues();
+		assertEquals(21, hand.value); 
 	}
 	
-	public void testBust() {
-		DealerHand hand = new DealerHand();
-		PlayerHand hand2 = new PlayerHand();
-		
-		/////////////////
-		/////////////////
-		/////////////////
-		
-		assertTrue(hand.value > 21);
-		assertTrue(hand2.value > 21);
+	public void testPlayerBust() {
+		ConsoleGame game = new ConsoleGame();
+		PlayerHand hand = game.player;
+		hand.cards.add("HQ");
+		hand.cards.add("SK");
+		hand.cards.add("D7");
+		assertEquals(true, game.playerBust());
+	}
+	public void testDealerBust() {
+		ConsoleGame game = new ConsoleGame();
+		DealerHand hand = game.dealer;
+		hand.cards.add("HQ");
+		hand.cards.add("SK");
+		hand.cards.add("D7");
+		assertEquals(true, game.dealerBust());
 	}
 	
 	public void testWinner() {
-		DealerHand hand = new DealerHand();
-		PlayerHand hand2 = new PlayerHand();
-		//case where one wins right away - has 2 cards that equal 21
-		//case where both win right away - has 2 cards that equal 21
-		//case where one wins with 3 cards
+		ConsoleGame game = new ConsoleGame();
+		DealerHand dealer = game.dealer;
+		PlayerHand player = game.player;
+		
+		//case where both have blackjack right away - dealer wins
+		dealer.cards.add("HQ");
+		dealer.cards.add("DA");
+		player.cards.add("SK");
+		player.cards.add("SA");
+		assertEquals(true, game.winner());
+		
+		game.player.cards = new LinkedList<String>();
+		game.dealer.cards = new LinkedList<String>();
+		
+		//case where dealer wins
+		dealer.cards.add("HQ");
+		dealer.cards.add("DA");
+		player.cards.add("SK");
+		player.cards.add("S2");
+		assertEquals(true, game.winner());
+		
+		game.player.cards = new LinkedList<String>();
+		game.dealer.cards = new LinkedList<String>();
+		
+		//case where player wins
+		dealer.cards.add("HQ");
+		dealer.cards.add("D5");
+		player.cards.add("SK");
+		player.cards.add("SA");
+		assertEquals(true, game.winner());
+		
+		game.player.cards = new LinkedList<String>();
+		game.dealer.cards = new LinkedList<String>();
+		
+		//case where dealer wins with 3 cards
+		dealer.cards.add("HQ");
+		dealer.cards.add("HK");
+		dealer.cards.add("DA");
+		player.cards.add("SK");
+		player.cards.add("S2");
+		assertEquals(true, game.winner());
+		
+		game.player.cards = new LinkedList<String>();
+		game.dealer.cards = new LinkedList<String>();
 	}
 	
 	public void testPlayerTurn() {
