@@ -1,0 +1,46 @@
+package core;
+
+import junit.framework.TestCase;
+
+public class PlayerHandTest extends TestCase{
+
+	public void testNumCards() {
+		Deck deck = new Deck();
+		PlayerHand hand = new PlayerHand();
+		hand.cards.add(deck.deal());
+		hand.cards.add(deck.deal());
+		assertEquals(2, hand.numCards());
+	}
+	
+	public void testCardsValue() {
+		//Deck deck = new Deck();
+		PlayerHand hand = new PlayerHand();
+		hand.cards.add("H3");
+		hand.cards.add("S9");
+		assertEquals(12, hand.cardsValue());
+	}
+	
+	public void testDisplayCards() {
+		PlayerHand hand = new PlayerHand();
+		Deck deck = new Deck();
+		hand.cards.add("H2");
+		hand.cards.add("SA");
+		assertEquals("player cards: H2, SA", hand.displayCards());
+	}
+	
+	public void testHit() {
+		PlayerHand hand = new PlayerHand();
+		hand.hit();
+		assertEquals(1, hand.cards.size());
+	}
+	
+	public void testStand() {
+		PlayerHand hand = new PlayerHand();
+		hand.hit();
+		hand.hit();
+		hand.stand();
+		assertEquals(2, hand.cards.size());
+	}
+	
+	
+}
