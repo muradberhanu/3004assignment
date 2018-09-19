@@ -11,8 +11,7 @@ public class PlayerHandTest extends TestCase{
 		hand.cards.add(deck.deal());
 		assertEquals(2, hand.numCards());
 	}
-	
-	
+
 	public void testDisplayCards() {
 		PlayerHand hand = new PlayerHand();
 		Deck deck = new Deck();
