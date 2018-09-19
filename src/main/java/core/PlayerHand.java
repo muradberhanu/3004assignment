@@ -5,6 +5,7 @@ import java.util.List;
 
 public class PlayerHand {
 	List<String> cards = new LinkedList<String>();
+	int value = 0;
 	
 	public int numCards() {
 		return cards.size();
