@@ -49,6 +49,12 @@ public class ConsoleGameTest extends TestCase{
 		assertEquals(7, hand.value); 
 		game.player.cards = new LinkedList<String>();
 		
+		hand.cards.add("H10"); //testing card with value 10 since it has 2 digits instead of 1
+		hand.cards.add("S5");
+		game.cardValues();
+		assertEquals(15, hand.value); 
+		game.player.cards = new LinkedList<String>();
+		
 		hand.cards.add("CK");
 		hand.cards.add("SQ");
 		game.cardValues();
@@ -129,7 +135,7 @@ public class ConsoleGameTest extends TestCase{
 		game.player.cards = new LinkedList<String>();
 		game.dealer.cards = new LinkedList<String>();
 		
-		//case where dealer wins
+		//case where dealer wins with blackjack
 		dealer.cards.add("HQ");
 		dealer.cards.add("DA");
 		player.cards.add("SK");
@@ -139,7 +145,7 @@ public class ConsoleGameTest extends TestCase{
 		game.player.cards = new LinkedList<String>();
 		game.dealer.cards = new LinkedList<String>();
 		
-		//case where player wins
+		//case where player wins with blackjack
 		dealer.cards.add("HQ");
 		dealer.cards.add("D5");
 		player.cards.add("SK");
@@ -167,5 +173,25 @@ public class ConsoleGameTest extends TestCase{
 	
 	public void testDealerTurn() {
 		
+	}
+	
+	public void testFinalWinner() {
+		ConsoleGame game = new ConsoleGame();
+		DealerHand dealer = game.dealer;
+		PlayerHand player = game.player;
+		player.cards.add("C7");
+		player.cards.add("D3");
+		dealer.cards.add("S7");
+		dealer.cards.add("CK");
+		assertEquals("Dealer", game.finalWinner());
+		
+		game.player.cards = new LinkedList<String>();
+		game.dealer.cards = new LinkedList<String>();
+		
+		dealer.cards.add("C7");
+		dealer.cards.add("D3");
+		player.cards.add("S7");
+		player.cards.add("CK");
+		assertEquals("Player", game.finalWinner());
 	}
 }
