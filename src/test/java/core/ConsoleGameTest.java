@@ -1,8 +1,6 @@
 package core;
 
 import java.util.LinkedList;
-import java.util.List;
-
 import junit.framework.TestCase;
 
 public class ConsoleGameTest extends TestCase{
@@ -167,12 +165,40 @@ public class ConsoleGameTest extends TestCase{
 		game.dealer.cards = new LinkedList<String>();
 	}
 	
-	public void testPlayerTurn() {
-		
-	}
 	
 	public void testDealerTurn() {
+		ConsoleGame game = new ConsoleGame();
+		DealerHand dealer = game.dealer;
 		
+		dealer.cards.add("HQ");
+		dealer.cards.add("HK"); //total value == 20
+		game.dealerTurn();
+		assertEquals(20, game.dealer.value); // making sure the value of their hand doesn't change (stand)
+		game.dealer.cards = new LinkedList<String>();
+		
+		dealer.cards.add("HA");
+		dealer.cards.add("H8"); //total value == soft 17
+		game.dealerTurn();
+		assertTrue(game.dealer.numCards()>2); // making sure the computer hits with a soft 17
+		game.dealer.cards = new LinkedList<String>();
+		
+		dealer.cards.add("HK");
+		dealer.cards.add("H7"); //total value == hard 17
+		game.dealerTurn();
+		assertEquals(17, game.dealer.value); // making sure the value of their hand doesn't change (stand)
+		game.dealer.cards = new LinkedList<String>();
+		
+		dealer.cards.add("HK");
+		dealer.cards.add("C6"); //total value == 16
+		game.dealerTurn();
+		assertTrue(game.dealer.numCards()>2);; // making sure the dealer hits
+		game.dealer.cards = new LinkedList<String>();
+		
+		dealer.cards.add("H5");
+		dealer.cards.add("C6"); //total value < 16
+		game.dealerTurn();
+		assertTrue(game.dealer.numCards()>2);; // making sure the dealer hits
+		game.dealer.cards = new LinkedList<String>();
 	}
 	
 	public void testFinalWinner() {
