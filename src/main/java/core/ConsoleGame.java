@@ -170,7 +170,7 @@ public class ConsoleGame {
 				winner();
 			}
 			else if(dealer.value==17) {	
-				if(dealer.cards.contains("SA") || dealer.cards.contains("CA") ||dealer.cards.contains("DA") ||dealer.cards.contains("HA")) {
+				if((dealer.cards.contains("SA")) || (dealer.cards.contains("CA")) ||(dealer.cards.contains("DA")) ||(dealer.cards.contains("HA"))) {
 					dealer.hit(deck.deal());
 					dealer.displayCards();
 					cardValues();
