@@ -40,6 +40,7 @@ public class ConsoleGameTest extends TestCase{
 	public void testCardValues() {
 		ConsoleGame game = new ConsoleGame();
 		PlayerHand hand = game.player;
+		DealerHand hand2 = game.dealer;
 		
 		hand.cards.add("H2");
 		hand.cards.add("S5");
@@ -99,6 +100,13 @@ public class ConsoleGameTest extends TestCase{
 		hand.cards.add("DA"); //two aces - both count as 1
 		game.cardValues();
 		assertEquals(21, hand.value); 
+		
+		hand2.cards.add("H9");
+		hand2.cards.add("S2");
+		hand2.cards.add("S3");
+		hand2.cards.add("D4"); //two aces - both count as 1
+		game.cardValues();
+		assertEquals(18, hand2.value); 
 	}
 	
 	public void testPlayerBust() {
@@ -176,8 +184,8 @@ public class ConsoleGameTest extends TestCase{
 		assertEquals(20, game.dealer.value); // making sure the value of their hand doesn't change (stand)
 		game.dealer.cards = new LinkedList<String>();
 		
-		dealer.cards.add("HA");
-		dealer.cards.add("H8"); //total value == soft 17
+		dealer.cards.add("H6");
+		dealer.cards.add("HA"); //total value == soft 17
 		game.dealerTurn();
 		assertTrue(game.dealer.numCards()>2); // making sure the computer hits with a soft 17
 		game.dealer.cards = new LinkedList<String>();
